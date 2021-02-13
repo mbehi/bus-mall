@@ -1,0 +1,22 @@
+body {
+  background-color: lavender;
+}
+
+h1 {
+  font-size: 3em;
+}
+
+h3 {
+  font-size: 1.5em;
+}
+
+section {
+  background: bisque;
+  width: max-content;
+  margin: auto;
+}
+
+section img {
+  width: 300px;
+  margin: 50px;
+}
