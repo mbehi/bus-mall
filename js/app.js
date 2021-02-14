@@ -59,16 +59,26 @@ function renderProducts(){
   // check to see if the index is included in that array
   // pop those results from the array or shift? maybe?
   while (firstProductIndex === secondProductIndex){
+    firstProductIndex = getRandomIndex();
+  }
+  while (firstProductIndex === thirdProductIndex){
+    thirdProductIndex = getRandomIndex();
+  }
+  while (secondProductIndex === thirdProductIndex){
     secondProductIndex = getRandomIndex();
   }
 
   imageOne.src = allProducts[firstProductIndex].src;
   imageOne.title = allProducts[firstProductIndex].name; // it will be assigned as image one title (change name in lab)
-  allProducts[firstProductIndex].views++
+  allProducts[firstProductIndex].views++;
 
   imageTwo.src = allProducts[secondProductIndex].src;
   imageTwo.title = allProducts[secondProductIndex].name;
   allProducts[secondProductIndex].views++;
+
+  imageThree.src = allProducts[thirdProductIndex].src;
+  imageThree.title = allProducts[thirdProductIndex].name;
+  allProducts[thirdProductIndex].views++;
 }
 
 function renderResults(){
@@ -76,28 +86,29 @@ function renderResults(){
   let myList = document.querySelector('ul');
   for (let i = 0; i<allProducts.length; i++){
     let li = document.createElement('li');
-    li.textContent = `${allProduct[i].name} had ${allProduct[i].views} votes, and was seen ${allProduct[i].clicks} times`;
+    li.textContent = `${allProducts[i].name} had ${allProducts[i].views} votes, and was seen ${allProducts[i].clicks} times`;
     myList.appendChild(li);
   }
 }
 
 function handleClick(event){
-  if (event.target === section){
+  if (event.target === myContainer){
     alert('Please click an image and FOLLOW INSTRUCTIONS');
   }
   totalClicks++;
-  let goatClicked = event.target.title;
+  let productsClicked = event.target.title;
 
   for(let i = 0; i< allProducts.length; i++)
-    if(goatClicked === allProducts[i].name) {
-      allGoats[i].clicks++;
+    if(productsClicked === allProducts[i].name) {
+      allProducts[i].clicks++;
     }
 }
 
 renderProducts();
 if (totalClicks === clicksAllowed) {
-// REMOVE EVENT LISTENER
+// // REMOVE EVENT LISTENER
 myContainer.removeEventListener('click', handleClick);
+  renderResults();
 }
 
 
