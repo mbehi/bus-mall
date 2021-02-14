@@ -3,7 +3,7 @@
 console.log('Hello, this is Mohsin!');
 
 // Global Variables
-let totalClicks = 0;
+let totalClicks = 24;
 let clicksAllowed = 25;
 let allProducts = [];
 
@@ -54,7 +54,7 @@ function renderProducts(){
   let firstProductIndex = getRandomIndex();
   let secondProductIndex = getRandomIndex();
   let thirdProductIndex = getRandomIndex();
-  // in lab today Ryan recommends using an array. 
+  // in lab today Ryan recommends using an array.
   // maybe name it indexArray
   // check to see if the index is included in that array
   // pop those results from the array or shift? maybe?
