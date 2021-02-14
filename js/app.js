@@ -1,62 +1,78 @@
 'user strict';
 
+console.log('Hello, this is Mohsin!')
+
 // Global Variables
 let totalClicks = 0;
 let clickAllowed = 25;
-let allGoats = [];
+let allProducts = [];
 let imageOne = document.querySelector('section img:first-child');
 let imageTwo = document.querySelector('section img:nth-child(2)');
 let myContainer = document.querySelector('section');
 let myButton = document.querySelector('div');
 
-function Goat(name, fileExtension = '.jpg'){
+
+function Product(name, fileExtension = '.jpg', '.gif'){
   this.name = name; // change from name to title (in lab)
-  this.src = `img/${name}.jpg`;
+  this.src = `img/${name}.${fileExtension}`;
   this.views = 0;
   this.clicks = 0;
-  allGoats.push(this);
+  allProducts.push(this);
 }
 
-new Goat('bunny-goat', 'png');
-new Goat('cool-goat');
-new Goat('crusin-goat');
-new Goat('float-your-goat');
-new Goat('kissing-goat');
-new Goat('lucky-goat');
-new Goat('sassy goat');
-new Goat('smiling-goat');
-new Goat('sweater-goat');
+new Product('bag', 'jpg');
+new Product('banana');
+new Product('bathroom');
+new Product('boots');
+new Product('breakfast');
+new Product('bubblegum');
+new Product('chair');
+new Product('cthulhu');
+new Product('dog-duck');
+new Product('dragon');
+new Product('pen');
+new Product('pet-sweep');
+new Product('scissors');
+new Product('shark');
+new Product('sweep', 'png');
+new Product('tauntaun');
+new Product('unicorn');
+new Product('usb', 'gif');
+new Product('water-can');
+new Product('wine-glass');
+
+// This is the function for the product randomization process.
 
 function getRandomIndex(){
   return Math.floor(Math.random() * allGoats.length);
 }
 
-function renderGoats(){
-  let firstGoatIndex = getRandomIndex();
-  let secondGoatIndex = getRandomIndex();
+function renderProducts(){
+  let firstProductIndex = getRandomIndex();
+  let secondProductIndex = getRandomIndex();
   // in lab today Ryan recommends using an array. 
   // maybe name it indexArray
   // check to see if the index is included in that array
   // pop those results from the array or shift? maybe?
-  while (firstGoat === secondGoat){
-    secondGoat = getRandomIndex();
+  while (firstProduct === secondProduct){
+    secondProduct = getRandomIndex();
   }
 
-  imageOne.src = allGoats[firstGoatIndex].src;
-  imageOne.title = allGoats[firstGoatIndex].name; // it will be assigned as image one title (change name in lab)
-  allGoats[firstGoatIndex].views++
+  imageOne.src = allProducts[firstProductIndex].src;
+  imageOne.title = allProducts[firstProductIndex].name; // it will be assigned as image one title (change name in lab)
+  allProducts[firstProductIndex].views++
 
-  imageTwo.src = allGoats[secondGoatIndex].src;
-  imageTwo.title = allGoats[secondGoatIndex].name;
-  allGoats[secondGoatIndex].views++;
+  imageTwo.src = allProducts[secondProductIndex].src;
+  imageTwo.title = allProducts[secondProductIndex].name;
+  allProducts[secondProductIndex].views++;
 }
 
 function renderResults(){
 // "bunny-goat was viewed 5 times and clicked 4 times"
   let myList = document.querySelector('ul');
-  for (let i = 0; i<allGoats.length; i++){
+  for (let i = 0; i<allProducts.length; i++){
     let li = document.createElement('li');
-    li.textContent = `${allGoat[i].name} had ${allGoats[i].views} votes, and was seen ${allGoat[i].clicks} times`;
+    li.textContent = `${allProduct[i].name} had ${allProduct[i].views} votes, and was seen ${allProduct[i].clicks} times`;
     myList.appendChild(li);
   }
 
@@ -69,13 +85,13 @@ function handleClick(event){
   totalClicks++;
   let goatClicked = event.target.title;
 
-  for(let i = 0; i< allGoats.length; i++)
-    if(goatClicked === allGoats[i].name) {
+  for(let i = 0; i< allProducts.length; i++)
+    if(goatClicked === allProducts[i].name) {
       allGoats[i].clicks++; 
     }
   }  
 
-  renderGoats();
+  renderProducts();
   if (totalClicks === clicksAllowed) {
     // REMOVE EVENT LISTENER
     myContainer.removeEventListener('click', handleClick);
@@ -91,7 +107,7 @@ function handleButtonClick(event){
   }
 }
 
-renderGoats();
+renderProducts();
 
 
 myContainer.addEventListener('click', handleClick);
