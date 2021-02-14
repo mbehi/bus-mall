@@ -1,5 +1,5 @@
 body {
-  background-color: lavender;
+  background-color: yellow;
 }
 
 h1 {
@@ -13,7 +13,7 @@ h3 {
 }
 
 section {
-  background: bisque;
+  background: grey;
   width: max-content;
   margin: auto;
 }
@@ -28,7 +28,7 @@ img:hover {
 }
 
 div {
-  background-color: gold;
+  background-color: white;
   padding: 5px;
   width: max-content;
   text-align: center;
