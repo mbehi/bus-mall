@@ -1,18 +1,21 @@
 'user strict';
 
-console.log('Hello, this is Mohsin!')
+console.log('Hello, this is Mohsin!');
 
 // Global Variables
 let totalClicks = 0;
-let clickAllowed = 25;
+let clicksAllowed = 25;
 let allProducts = [];
+
 let imageOne = document.querySelector('section img:first-child');
 let imageTwo = document.querySelector('section img:nth-child(2)');
+let imageThree = document.querySelector('section img:nth-child(3)');
+
 let myContainer = document.querySelector('section');
 let myButton = document.querySelector('div');
 
 
-function Product(name, fileExtension = '.jpg', '.gif'){
+function Product(name, fileExtension = 'jpg'){
   this.name = name; // change from name to title (in lab)
   this.src = `img/${name}.${fileExtension}`;
   this.views = 0;
@@ -20,7 +23,7 @@ function Product(name, fileExtension = '.jpg', '.gif'){
   allProducts.push(this);
 }
 
-new Product('bag', 'jpg');
+new Product('bag');
 new Product('banana');
 new Product('bathroom');
 new Product('boots');
@@ -44,18 +47,19 @@ new Product('wine-glass');
 // This is the function for the product randomization process.
 
 function getRandomIndex(){
-  return Math.floor(Math.random() * allGoats.length);
+  return Math.floor(Math.random() * allProducts.length);
 }
 
 function renderProducts(){
   let firstProductIndex = getRandomIndex();
   let secondProductIndex = getRandomIndex();
+  let thirdProductIndex = getRandomIndex();
   // in lab today Ryan recommends using an array. 
   // maybe name it indexArray
   // check to see if the index is included in that array
   // pop those results from the array or shift? maybe?
-  while (firstProduct === secondProduct){
-    secondProduct = getRandomIndex();
+  while (firstProductIndex === secondProductIndex){
+    secondProductIndex = getRandomIndex();
   }
 
   imageOne.src = allProducts[firstProductIndex].src;
@@ -75,30 +79,27 @@ function renderResults(){
     li.textContent = `${allProduct[i].name} had ${allProduct[i].views} votes, and was seen ${allProduct[i].clicks} times`;
     myList.appendChild(li);
   }
-
 }
+
 function handleClick(event){
   if (event.target === section){
     alert('Please click an image and FOLLOW INSTRUCTIONS');
-    break;
   }
   totalClicks++;
   let goatClicked = event.target.title;
 
   for(let i = 0; i< allProducts.length; i++)
     if(goatClicked === allProducts[i].name) {
-      allGoats[i].clicks++; 
+      allGoats[i].clicks++;
     }
-  }  
-
-  renderProducts();
-  if (totalClicks === clicksAllowed) {
-    // REMOVE EVENT LISTENER
-    myContainer.removeEventListener('click', handleClick);
-    renderResults();
-  }
-
 }
+
+renderProducts();
+if (totalClicks === clicksAllowed) {
+// REMOVE EVENT LISTENER
+myContainer.removeEventListener('click', handleClick);
+}
+
 
 function handleButtonClick(event){
   console.log('I was clicked');
