@@ -3,14 +3,15 @@
 console.log('Hello, this is Mohsin!');
 
 // Global Variables
-let totalClicks = 24;
-let clicksAllowed = 25;
+let totalClicks = 0;
+let clicksAllowed = 2;
 let allProducts = [];
 
 let imageOne = document.querySelector('section img:first-child');
 let imageTwo = document.querySelector('section img:nth-child(2)');
 let imageThree = document.querySelector('section img:nth-child(3)');
 
+// let myContainer = document.querySelector('main > section')
 let myContainer = document.querySelector('section');
 let myButton = document.querySelector('div');
 
@@ -51,6 +52,7 @@ function getRandomIndex(){
 }
 
 function renderProducts(){
+  let productIndexArray = [];
   let firstProductIndex = getRandomIndex();
   let secondProductIndex = getRandomIndex();
   let thirdProductIndex = getRandomIndex();
@@ -68,6 +70,21 @@ function renderProducts(){
     secondProductIndex = getRandomIndex();
   }
 
+ // example = [1, 2, 3]
+  // function renderProducts(){
+  //   while (productIndexArray.length < 3) {
+  //     let randomNumber = getRandomIndex();
+  //   while (!productIndexArray.includes(randomNumber)){
+  //     productIndexArray.push(randomNumber);
+  //   }
+  // }
+
+  // let firstProductIndex = productIndexArray.pop(); // assign 3 to variable. last number in array, 2 numbers left
+  // let secondProductIndex = productIndexArray.pop(); // assign 2 to variable, 1 thing left in array
+  // let thirdProductIndex = productIndexArray.pop(); // assign 1 to variable, array is now empty
+
+  
+  // you can turn this into a functon to meet the DRY method. by refactoring
   imageOne.src = allProducts[firstProductIndex].src;
   imageOne.title = allProducts[firstProductIndex].name; // it will be assigned as image one title (change name in lab)
   allProducts[firstProductIndex].views++;
@@ -92,9 +109,9 @@ function renderResults(){
 }
 
 function handleClick(event){
-  if (event.target === myContainer){
-    alert('Please click an image and FOLLOW INSTRUCTIONS');
-  }
+  // if (event.target === myContainer){
+  //   alert('Please click an image and FOLLOW INSTRUCTIONS');
+  // }
   totalClicks++;
   let productsClicked = event.target.title;
 
@@ -107,20 +124,24 @@ function handleClick(event){
 renderProducts();
 if (totalClicks === clicksAllowed) {
 // // REMOVE EVENT LISTENER
-myContainer.removeEventListener('click', handleClick);
-  renderResults();
+  myContainer.removeEventListener('click', handleClick);
+  // renderResults();
 }
 
 
-function handleButtonClick(event){
-  console.log('I was clicked');
-  if(totalClicks === clicksAllowed){
-    renderResults();
-  }
+// function handleButtonClick(event){
+//   // console.log('I was clicked');
+//   if(totalClicks === clicksAllowed){
+//     renderResults();
+//   }
 }
 
 renderProducts();
 
 
 myContainer.addEventListener('click', handleClick);
-myButton.addEventListener('click', handleButtonClick);
+myButton.addEventListener('click', function (event){
+  if (totalClicks === clicksAllowed! {
+    renderResults();
+  }
+}
