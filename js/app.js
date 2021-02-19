@@ -3,9 +3,11 @@
 console.log('Hello, this is Mohsin!');
 
 // Global Variables
-let totalClicks = 3;
-let clicksAllowed = 3;
+let totalClicks = 1;
+let clicksAllowed = 6;
 let allProducts = [];
+let indexArray = [];
+let uniqueImageCount = 6;
 
 let imageOne = document.querySelector('section img:first-child');
 let imageTwo = document.querySelector('section img:nth-child(2)');
@@ -50,18 +52,23 @@ function getRandomIndex(){
   return Math.floor(Math.random() * allProducts.length);
 }
 
+// ryan showing us how to use a function 
+// function imgPropertyAssignment(imgIndex, imageElement){
+//   imageOne.src = allProducts(img)
+// }
+
+
 function renderProducts(){
-  let indexArray = []
-  while (indexArray.length < 3){
+  while (indexArray.length < uniqueImageCount) {
     let randomIndex = getRandomIndex();
     while (!indexArray.includes(randomIndex)) {
-      indexArray.push(randomIndex);
+      indexArray.unshift(randomIndex);
     }
   }
 
-  let firstProductIndex = indexArray.pop();
-  let secondProductIndex = indexArray.pop();
-  let thirdProductIndex = indexArray.pop();
+  let firstProductIndex = indexArray.shift();
+  let secondProductIndex = indexArray.shift();
+  let thirdProductIndex = indexArray.shift();
 
   // in lab today Ryan recommends using an array.
   // maybe name it indexArray
@@ -136,7 +143,7 @@ function renderChart() {
     productViews.push(allProducts[i].views);
     productClicks.push(allProducts[i].clicks);
   }
-  console
+  console.log(renderChart);
 
  let ctx = document.getElementById('myChart').getContext('2d');
  let myChart = new Chart(ctx, {
