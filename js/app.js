@@ -3,9 +3,11 @@
 console.log('Hello, this is Mohsin!');
 
 // Global Variables
-let totalClicks = 3;
-let clicksAllowed = 3;
+let totalClicks = 1;
+let clicksAllowed = 6;
 let allProducts = [];
+let indexArray = [];
+let uniqueImageCount = 6;
 
 let imageOne = document.querySelector('section img:first-child');
 let imageTwo = document.querySelector('section img:nth-child(2)');
@@ -50,18 +52,23 @@ function getRandomIndex(){
   return Math.floor(Math.random() * allProducts.length);
 }
 
+// ryan showing us how to use a function
+// function imgPropertyAssignment(imgIndex, imageElement){
+//   imageOne.src = allProducts(img)
+// }
+
+
 function renderProducts(){
-  let indexArray = []
-  while (indexArray.length < 3){
+  while (indexArray.length < uniqueImageCount) {
     let randomIndex = getRandomIndex();
     while (!indexArray.includes(randomIndex)) {
-      indexArray.push(randomIndex);
+      indexArray.unshift(randomIndex);
     }
   }
 
-  let firstProductIndex = indexArray.pop();
-  let secondProductIndex = indexArray.pop();
-  let thirdProductIndex = indexArray.pop();
+  let firstProductIndex = indexArray.shift();
+  let secondProductIndex = indexArray.shift();
+  let thirdProductIndex = indexArray.shift();
 
   // in lab today Ryan recommends using an array.
   // maybe name it indexArray
@@ -108,7 +115,7 @@ function handleClick(event){
 renderProducts();
 if (totalClicks === clicksAllowed) {
 // // REMOVE EVENT LISTENER
-myContainer.removeEventListener('click', handleClick);
+  myContainer.removeEventListener('click', handleClick);
   renderChart();
 }
 
@@ -136,44 +143,44 @@ function renderChart() {
     productViews.push(allProducts[i].views);
     productClicks.push(allProducts[i].clicks);
   }
-  console
+  console.log(renderChart);
 
- let ctx = document.getElementById('myChart').getContext('2d');
- let myChart = new Chart(ctx, {
-  type: 'bar',
+  let ctx = document.getElementById('myChart').getContext('2d');
+  let myChart = new Chart(ctx, {
+    type: 'bar',
     data: {
       labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
       datasets: [{
-           label: '# of Votes',
-           data: [12, 19, 3, 5, 2, 3],
-           backgroundColor: [
-              'rgba(255, 99, 132, 0.2)',
-              'rgba(54, 162, 235, 0.2)',
-              'rgba(255, 206, 86, 0.2)',
-              'rgba(75, 192, 192, 0.2)',
-              'rgba(153, 102, 255, 0.2)',
-              'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-               'rgba(255, 99, 132, 1)',
-               'rgba(54, 162, 235, 1)',
-               'rgba(255, 206, 86, 1)',
-               'rgba(75, 192, 192, 1)',
-               'rgba(153, 102, 255, 1)',
-               'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-        }]
+        label: '# of Votes',
+        data: [12, 19, 3, 5, 2, 3],
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)'
+        ],
+        borderWidth: 1
+      }]
     },
     options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true
-                }
-            }]
-        }
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
     }
-});
+  });
 }
 myContainer.addEventListener('click', handleClick);
