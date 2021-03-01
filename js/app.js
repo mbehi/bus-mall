@@ -118,8 +118,8 @@ function handleClick(event){
   function handleButtonClick(event){
     console.log('I was clicked');
     if(totalClicks === clicksAllowed){
-      renderResults();
-    }
+    //   renderResults();
+    // }
   }
   renderProducts();
 
