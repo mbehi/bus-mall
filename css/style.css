@@ -13,9 +13,10 @@ h3 {
 }
 
 section {
-  background: grey;
+  /* background: grey; */
   width: max-content;
   margin: auto;
+  border: black;
 }
 
 section img {
@@ -27,7 +28,7 @@ img:hover {
   cursor: pointer;
 }
 
-div {
+/* div {
   background-color: white;
   padding: 5px;
   width: max-content;
@@ -39,4 +40,10 @@ div {
 
 div:hover {
   cursor: pointer;
+} */
+
+#chart {
+  height: 400px;
+  width: 800px;
+  margin: auto;
 }
