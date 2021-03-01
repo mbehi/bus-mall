@@ -5,13 +5,18 @@
 // Global Variables
 let totalClicks = 0;
 let clicksAllowed = 25;
+let uniqueImageCount = 6;
 let allProducts = [];
 let indexArray = [];
-let uniqueImageCount = 6;
+
+let chart = document.getElementById('chart').getContext('2d');
+let ctx = document.getElementById('myChart').getContext('2d');
+let myContainer = document.querySelector('section');
+
 let imageOne = document.querySelector('section img:first-child');
 let imageTwo = document.querySelector('section img:nth-child(2)');
 let imageThree = document.querySelector('section img:nth-child(3)');
-let myContainer = document.querySelector('section');
+
 
 // Constructor
 function Product(name, fileExtension = 'jpg'){
@@ -22,26 +27,33 @@ function Product(name, fileExtension = 'jpg'){
   allProducts.push(this);
 }
 
-new Product('bag');
-new Product('banana');
-new Product('bathroom');
-new Product('boots');
-new Product('breakfast');
-new Product('bubblegum');
-new Product('chair');
-new Product('cthulhu');
-new Product('dog-duck');
-new Product('dragon');
-new Product('pen');
-new Product('pet-sweep');
-new Product('scissors');
-new Product('shark');
-new Product('sweep', 'png');
-new Product('tauntaun');
-new Product('unicorn');
-new Product('usb', 'gif');
-new Product('water-can');
-new Product('wine-glass');
+// Local Storage
+let retrieveProduct = localStorage.getItem('product');
+if (retrieveProduct) {
+  let parsedProduct = JSON.parse(retrieveProduct);
+  allProducts = parsedProduct;
+} else {
+  new Product('bag');
+  new Product('banana');
+  new Product('bathroom');
+  new Product('boots');
+  new Product('breakfast');
+  new Product('bubblegum');
+  new Product('chair');
+  new Product('cthulhu');
+  new Product('dog-duck');
+  new Product('dragon');
+  new Product('pen');
+  new Product('pet-sweep');
+  new Product('scissors');
+  new Product('shark');
+  new Product('sweep', 'png');
+  new Product('tauntaun');
+  new Product('unicorn');
+  new Product('usb', 'gif');
+  new Product('water-can');
+  new Product('wine-glass');
+}
 
 // This is the function for the product randomization process.
 function getRandomIndex() {
@@ -94,7 +106,7 @@ function renderResults(){
 }
 
 function handleClick(event){
-  if (event.target === myContainer){
+  if (event.target === myContainer)
     alert('Please click an image and FOLLOW INSTRUCTIONS');
   }
   
@@ -115,12 +127,10 @@ function handleClick(event){
 
   renderResults();
 
-  function handleButtonClick(event){
-    console.log('I was clicked');
-    if(totalClicks === clicksAllowed){
+  function handleButtonClick(event) {
+    if (totalClicks === clicksAllowed);
     //   renderResults();
     // }
-  }
   renderProducts();
 
   function renderChart() {
@@ -135,7 +145,6 @@ function handleClick(event){
     }
     // console.log(renderChart);
 
-    var ctx = document.getElementById('myChart').getContext('2d');
     var Chart = new Chart(ctx, {
       type: 'bar', // chart type
       // Data
@@ -174,5 +183,4 @@ function handleClick(event){
       }
     });
   }
-  myContainer.addEventListener('click', handleClick);
-}
+  myContainer.addEventListener('click', handleClick)
