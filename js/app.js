@@ -5,17 +5,14 @@
 // Global Variables
 let totalClicks = 0;
 let clicksAllowed = 25;
-let uniqueImageCount = 6;
 let allProducts = [];
 let indexArray = [];
-
-let chart = document.getElementById('chart').getContext('2d');
-let ctx = document.getElementById('myChart').getContext('2d');
-let myContainer = document.querySelector('section');
+let uniqueImageCount = 6;
 
 let imageOne = document.querySelector('section img:first-child');
 let imageTwo = document.querySelector('section img:nth-child(2)');
 let imageThree = document.querySelector('section img:nth-child(3)');
+let myContainer = document.querySelector('section');
 
 
 // Constructor
@@ -69,13 +66,13 @@ function renderProducts() {
   while (indexArray.length < uniqueImageCount) {
     let randomIndex = getRandomIndex();
     while (!indexArray.includes(randomIndex)) {
-      indexArray.push(randomIndex);
+      indexArray.unshift(randomIndex);
     }
   }
 
-  let firstProductIndex = indexArray.shift();
-  let secondProductIndex = indexArray.shift();
-  let thirdProductIndex = indexArray.shift();
+  let firstProductIndex = indexArray.pop();
+  let secondProductIndex = indexArray.pop();
+  let thirdProductIndex = indexArray.pop();
 
   // in lab today Ryan recommends using an array.
   // maybe name it indexArray
@@ -94,93 +91,117 @@ function renderProducts() {
   imageThree.title = allProducts[thirdProductIndex].name;
   allProducts[thirdProductIndex].views++;
 }
+renderProducts();
 
-function renderResults(){
-// "bunny-goat was viewed 5 times and clicked 4 times"
-  let myList = document.querySelector('ul');
-  for (let i = 0; i<allProducts.length; i++){
-    let li = document.createElement('li');
-    li.textContent = `${allProducts[i].name} had ${allProducts[i].views} votes, and was seen ${allProducts[i].clicks} times`;
-    myList.appendChild(li);
+// function renderResults(){
+// // "bunny-goat was viewed 5 times and clicked 4 times"
+//   let myList = document.querySelector('ul');
+//   for (let i = 0; i<allProducts.length; i++){
+//     let li = document.createElement('li');
+//     li.textContent = `${allProducts[i].name} had ${allProducts[i].views} votes, and was seen ${allProducts[i].clicks} times`;
+//     myList.appendChild(li);
+//   }
+// }
+
+// function handleClick(event) {
+//   if (event.target === myContainer) {
+//     alert('Please click an image and FOLLOW INSTRUCTIONS');
+//   }
+//   totalClicks++;
+//   let productsClicked = event.target.title;
+
+//   for (let i = 0; i< allProducts.length; i++) {
+//     if(productsClicked === allProducts[i].name) {
+//       allProducts[i].clicks++;
+//     }
+//   }
+//   renderProducts();
+//   if (totalClicks === clicksAllowed) {
+//   // // REMOVE EVENT LISTENER
+//     myContainer.removeEventListener('click', handleClick);
+//     let stringifiedProducts = JSON.stringify(allProducts);
+//     localStorage.setItem('products', stringifiedProducts);
+//     renderChart();
+//   }
+// }
+
+// function handleButtonClick(event) {
+//   if (totalClicks === clicksAllowed); {
+//   }
+//   //   renderResults();
+//   // }
+// renderProducts();
+
+function handleButtonClick(event){
+  totalClicks++;
+  let allProductClick = event.target.title;
+
+  for(let i=0; i < allProducts.length; i++){
+    if(allProductClick === allProducts[i],name)
+      allProducts[i].clicks++;
   }
+  renderProducts();
+  renderChart();
+
+  let stringifyAllProducts = JSON.stringify(allProducts);
+  console.log(stringifyAllProducts);
+
+  localStorage.setItem('catalog-items',stringifyAllProducts);
+
+  if(totalClicks === clicksAllowed)
+    myContainer.removeEventListener('click', handleButtonClick);
 }
 
-function handleClick(event){
-  if (event.target === myContainer)
-    alert('Please click an image and FOLLOW INSTRUCTIONS');
+function renderChart() {
+  let productNames = [];
+  let productViews = [];
+  let productClicks = [];
+
+  for (let i = 0; i < allProducts.length; i++) {
+    productNames.push(allProducts[i].name);
+    productViews.push(allProducts[i].views);
+    productClicks.push(allProducts[i].clicks);
   }
-  
-  totalClicks++;
-  let productsClicked = event.target.title;
-
-  for (let i = 0; i< allProducts.length; i++) {
-    if(productsClicked === allProducts[i].name) {
-      allProducts[i].clicks++;
-    }}
-
-  renderProducts();
-  if (totalClicks === clicksAllowed) {
-  // // REMOVE EVENT LISTENER
-    myContainer.removeEventListener('click', handleClick);
-    renderChart();
-  }
-
-  renderResults();
-
-  function handleButtonClick(event) {
-    if (totalClicks === clicksAllowed);
-    //   renderResults();
-    // }
-  renderProducts();
-
-  function renderChart() {
-    let productNames = [];
-    let productViews = [];
-    let productClicks = [];
-
-    for (let i = 0; i < allProducts.length; i++) {
-      productNames.push(allProducts[i].name);
-      productViews.push(allProducts[i].views);
-      productClicks.push(allProducts[i].clicks);
-    }
-    // console.log(renderChart);
-
-    var Chart = new Chart(ctx, {
-      type: 'bar', // chart type
-      // Data
-      data: {
-        labels: productNames,
-        datasets: [{
-          label: 'Total Number of Views',
-          data: productViews,
-          backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 206, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(255, 159, 64, 0.2)'
-          ],
-          borderColor: [
-            'rgba(255, 99, 132, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)',
-            'rgba(255, 159, 64, 1)'
-          ],
-          borderWidth: 1
+  // console.log(renderChart);
+  let chartObject = {
+    type: 'bar', // chart type
+    // Data
+    data: {
+      labels: productNames,
+      datasets: [{
+        label: 'Total Number of Views',
+        data: productViews,
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)'
+        ],
+        borderWidth: 1
+      }]
+    },
+    responsive: true,
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
         }]
-      },
-      options: {
-        scales: {
-          yAxes: [{
-            ticks: {
-              beginAtZero: true
-            }
-          }]
-        }
       }
-    });
-  }
-  myContainer.addEventListener('click', handleClick)
+    }
+  };
+  let ctx = document.getElementById('myChart').getContext('2d');
+  let myChart = new Chart (ctx, chartObject);
+}
+myContainer.addEventListener('click', handleButtonClick);
