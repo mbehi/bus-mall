@@ -69,13 +69,13 @@ function renderProducts() {
   while (indexArray.length < uniqueImageCount) {
     let randomIndex = getRandomIndex();
     while (!indexArray.includes(randomIndex)) {
-      indexArray.push(randomIndex);
+      indexArray.unshift(randomIndex);
     }
   }
 
-  let firstProductIndex = indexArray.shift();
-  let secondProductIndex = indexArray.shift();
-  let thirdProductIndex = indexArray.shift();
+  let firstProductIndex = indexArray.pop();
+  let secondProductIndex = indexArray.pop();
+  let thirdProductIndex = indexArray.pop();
 
   // in lab today Ryan recommends using an array.
   // maybe name it indexArray
@@ -95,40 +95,41 @@ function renderProducts() {
   allProducts[thirdProductIndex].views++;
 }
 
-function renderResults(){
-// "bunny-goat was viewed 5 times and clicked 4 times"
-  let myList = document.querySelector('ul');
-  for (let i = 0; i<allProducts.length; i++){
-    let li = document.createElement('li');
-    li.textContent = `${allProducts[i].name} had ${allProducts[i].views} votes, and was seen ${allProducts[i].clicks} times`;
-    myList.appendChild(li);
-  }
-}
+// function renderResults(){
+// // "bunny-goat was viewed 5 times and clicked 4 times"
+//   let myList = document.querySelector('ul');
+//   for (let i = 0; i<allProducts.length; i++){
+//     let li = document.createElement('li');
+//     li.textContent = `${allProducts[i].name} had ${allProducts[i].views} votes, and was seen ${allProducts[i].clicks} times`;
+//     myList.appendChild(li);
+//   }
+// }
 
-function handleClick(event){
-  if (event.target === myContainer)
+function handleClick(event) {
+  if (event.target === myContainer) {
     alert('Please click an image and FOLLOW INSTRUCTIONS');
   }
-  
   totalClicks++;
   let productsClicked = event.target.title;
 
   for (let i = 0; i< allProducts.length; i++) {
     if(productsClicked === allProducts[i].name) {
       allProducts[i].clicks++;
-    }}
-
+    }
+  }
   renderProducts();
   if (totalClicks === clicksAllowed) {
   // // REMOVE EVENT LISTENER
     myContainer.removeEventListener('click', handleClick);
+    let stringifiedProducts = JSON.stringify(allProducts);
+    localStorage.setItem('products', stringifiedProducts);
     renderChart();
   }
-
-  renderResults();
+}
 
   function handleButtonClick(event) {
-    if (totalClicks === clicksAllowed);
+    if (totalClicks === clicksAllowed); {
+    }
     //   renderResults();
     // }
   renderProducts();
@@ -137,14 +138,12 @@ function handleClick(event){
     let productNames = [];
     let productViews = [];
     let productClicks = [];
-
     for (let i = 0; i < allProducts.length; i++) {
       productNames.push(allProducts[i].name);
       productViews.push(allProducts[i].views);
       productClicks.push(allProducts[i].clicks);
     }
     // console.log(renderChart);
-
     var Chart = new Chart(ctx, {
       type: 'bar', // chart type
       // Data
@@ -183,4 +182,4 @@ function handleClick(event){
       }
     });
   }
-  myContainer.addEventListener('click', handleClick)
+  myContainer.addEventListener('click', handleClick);
